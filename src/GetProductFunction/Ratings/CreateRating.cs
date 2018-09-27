@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Functions.Models;
+using Functions.Users;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
@@ -34,6 +35,15 @@ namespace Functions.Ratings
                 rating.LocationName = data?.locationName;
                 rating.RatingValue = data?.rating;
                 rating.UserNotes = data?.userNotes;
+
+				try
+				{
+					await UserApi.GetUserByIdAsync(rating.UserId);
+				}
+				catch (Exception ex)
+				{
+					req.CreateErrorResponse(HttpStatusCode.NotFound, ex);
+				}
 
                 await document.AddAsync(rating);
                 return req.CreateResponse(HttpStatusCode.OK, "Hello there " );
