@@ -2,7 +2,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
+using Functions.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
@@ -13,7 +14,7 @@ namespace Functions.Ratings
     public static class GetRating
     {
         [FunctionName("GetRating")]
-        public static HttpResponseMessage Run(
+        public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", 
                 Route = "todoitems/{id}")]HttpRequestMessage req,
             [CosmosDB(
