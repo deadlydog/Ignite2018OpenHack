@@ -16,7 +16,7 @@ namespace Functions.Ratings
             [CosmosDB(
                 databaseName: "FruitIcecream",
                 collectionName: "Ratings",
-                ConnectionStringSetting = "https://bfyoc-t15team.documents.azure.com:443/;AccountKey=pqxzZrcr8Ooo6zOg2qcgsesa77Ql2Ds6BmRwuZFMwSYOWtMFjA7N8e5wmxwfOFmHqM1JuJRotdiyLunM4ypbRQ==;")] IEnumerable<Rating> ratingItems, ILogger log)
+                ConnectionStringSetting = "CosmosDBConnection")] IEnumerable<Rating> ratingItems, ILogger log)
         {
             log.Log(LogLevel.Information,"C# HTTP trigger function processed a request.");
 
