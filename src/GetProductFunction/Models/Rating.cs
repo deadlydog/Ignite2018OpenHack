@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Functions.Ratings
+namespace Functions.Models
 {
 	public class Rating
 	{
