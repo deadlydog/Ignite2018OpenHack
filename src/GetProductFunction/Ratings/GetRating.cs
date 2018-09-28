@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,14 +15,12 @@ namespace Functions.Ratings
     public static class GetRating
     {
         [FunctionName("GetRating")]
-        public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", 
-                Route = "todoitems/{id}")]HttpRequestMessage req,
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getrating/{rateId}")]HttpRequestMessage req,
             [CosmosDB(
-                databaseName: "FruitIceCream",
+                databaseName: "FruitIcecream",
                 collectionName: "Ratings",
                 ConnectionStringSetting = "CosmosDBConnection",
-                Id = "{id}")] Rating ratingItem,
+                Id ="{rateId}")] Rating ratingItem,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -34,7 +33,7 @@ namespace Functions.Ratings
             {
                 log.LogInformation($"Found Rating item, Description={ratingItem.RatingValue}");
             }
-            return new OkResult();
+            return req.CreateResponse(HttpStatusCode.OK, ratingItem);
         }
     }
 }

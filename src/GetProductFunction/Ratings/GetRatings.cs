@@ -12,12 +12,14 @@ namespace Functions.Ratings
     public static class GetRatings
     {
         [FunctionName("GetRatings")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ratings")]HttpRequestMessage req, 
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ratings/{id}")]HttpRequestMessage req, 
             [CosmosDB(
                 databaseName: "FruitIcecream",
                 collectionName: "Ratings",
-                ConnectionStringSetting = "CosmosDBConnection")] IEnumerable<Rating> ratingItems, ILogger log)
+                ConnectionStringSetting = "CosmosDBConnection",
+                SqlQuery = "select * from Ratings r where r.UserId = {id}")] IEnumerable<Rating> ratingItems, ILogger log)
         {
+
             log.Log(LogLevel.Information,"C# HTTP trigger function processed a request.");
 
             return req.CreateResponse(HttpStatusCode.OK, ratingItems);
