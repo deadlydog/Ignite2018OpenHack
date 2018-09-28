@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Functions.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -15,12 +15,14 @@ namespace Functions.Ratings
     public static class GetRating
     {
         [FunctionName("GetRating")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getrating/{rateId}")]HttpRequestMessage req,
+        public static HttpResponseMessage Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", 
+                Route = "GetRating/{ratingId}")]HttpRequestMessage req,
             [CosmosDB(
                 databaseName: "FruitIcecream",
                 collectionName: "Ratings",
                 ConnectionStringSetting = "CosmosDBConnection",
-                Id ="{rateId}")] Rating ratingItem,
+                Id = "{ratingId}")] Rating ratingItem,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -33,7 +35,7 @@ namespace Functions.Ratings
             {
                 log.LogInformation($"Found Rating item, Description={ratingItem.RatingValue}");
             }
-            return req.CreateResponse(HttpStatusCode.OK, ratingItem);
+            return req.CreateResponse (HttpStatusCode.OK, ratingItem);
         }
     }
 }
