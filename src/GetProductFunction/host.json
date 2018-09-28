@@ -1,2 +1,8 @@
 {
+	"IsEncrypted": false,
+	"Values": {
+		"AzureWebJobsStorage": "UseDevelopmentStorage=false",
+		"AzureWebJobsDashboard": "UseDevelopmentStorage=false",
+		"CosmosDBConnection": "AccountEndpoint=https://bfyoc-t15team.documents.azure.com:443/;AccountKey=pqxzZrcr8Ooo6zOg2qcgsesa77Ql2Ds6BmRwuZFMwSYOWtMFjA7N8e5wmxwfOFmHqM1JuJRotdiyLunM4ypbRQ==;"
+	}
 }
